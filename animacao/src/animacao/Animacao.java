@@ -104,7 +104,7 @@ public class Animacao extends JFrame{
     TransformGroup tgPlatform = new TransformGroup(tfPlatform);
     tgPlatform.addChild(platform);
 
-
+ em Java 3D nas cores vermelho, verde e azul. Aponte os spotlights para a face frontal de um cubo branco de forma que o centro
 
 
 
