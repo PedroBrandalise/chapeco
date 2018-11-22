@@ -121,7 +121,7 @@ public class Animacaofinal1 extends JFrame{
         setToMyDefaultAppearance(whiteApp, new Color3f(1.0f, 1.0f,01.0f));
         
         
-        float multiplicador = 0.01f;
+        float multiplicador = 0.51f;
         
         //cabeça do boneco
         float raioCabeca = 2 * multiplicador;
@@ -262,6 +262,10 @@ public class Animacaofinal1 extends JFrame{
         theScene.addChild(tgBracoD2);
         theScene.addChild(tgBracoE2);
 
+        Background bg = new Background(new Color3f(0.30f,0.470f,0.80f));
+        //BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0),Double.MAX_VALUE);
+        bg.setApplicationBounds(bounds);
+        theScene.addChild(bg);
         
         theScene.compile();
         
@@ -295,13 +299,13 @@ public class Animacaofinal1 extends JFrame{
         AudioStream BGM;  
         AudioData MD;  
         ContinuousAudioDataStream loop = null;  
-
+ 
         try {  
             BGM = new AudioStream(new FileInputStream("som.wav"));  
             MD = BGM.getData();  
             loop = new ContinuousAudioDataStream(MD);  
         } catch(IOException error)  {  
-            System.out.println("Error!!!");  
+            System.out.println("Error!!!"+error.getMessage());  
 
         }  
         MGP.start(loop);  

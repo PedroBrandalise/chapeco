@@ -1,4 +1,4 @@
-package normalform;
+package clippedplanes;
 import javax.vecmath.*;
 import com.sun.j3d.utils.geometry.*;
 import com.sun.j3d.utils.universe.*;
@@ -8,14 +8,14 @@ import javax.swing.JFrame;
 
 
 /**
-* An example of a 3D scene composed of elementary objects.
-* The scene is displayed using parallel instead of 
-* perspective projection.
+* An example for changing the clipping volume by the angle of view and
+* shifting the front and the back clipping plane.
 *
 * @author Frank Klawonn
 * Last change 27.05.2005
+* @see StaticSceneExample
 */
-public class ViewParallelProjection extends JFrame
+public class ClippingPlanes extends JFrame
 {
 
   //The canvas to be drawn upon.
@@ -23,7 +23,7 @@ public class ViewParallelProjection extends JFrame
 
 
 
-  public ViewParallelProjection()
+  public ClippingPlanes()
   {
     //Mechanism for closing the window and ending the program.
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,9 +42,6 @@ public class ViewParallelProjection extends JFrame
     simpUniv.getViewingPlatform().setNominalViewingTransform();
 
 
-    //Verwende Parallelprojektion statt perspektivischer Projektion
-    simpUniv.getViewer().getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
-
     //The scene is generated in this method.
     createSceneGraph(simpUniv);
 
@@ -59,8 +56,18 @@ public class ViewParallelProjection extends JFrame
     simpUniv.getViewingPlatform().setViewPlatformBehavior(ob);
 
 
+    /*/The View of the SimpleUniverse.
+    View v = simpUniv.getViewer().getView();
+    //The angle of view is reduced to 30 degrees.
+    v.setFieldOfView(Math.PI);
+    //The back clipping plane is shifted closer to the viewer.
+    v.setBackClipDistance(0.23);
+    //The front clipping plane is shifted away from the viewer.
+    v.setFrontClipDistance(0.545);
+    */
+
     //Show the canvas/window.
-    setTitle("Parallel projection");
+    setTitle("Static scene with elementary objects badly clipped");
     setSize(700,700);
     getContentPane().add("Center", myCanvas3D);
     setVisible(true);
@@ -72,7 +79,7 @@ public class ViewParallelProjection extends JFrame
 
   public static void main(String[] args)
   {
-     ViewParallelProjection vpp = new ViewParallelProjection();
+     ClippingPlanes cp = new ClippingPlanes();
   }
 
 
@@ -89,7 +96,7 @@ public class ViewParallelProjection extends JFrame
 
     //An Appearance to make the platform red.
     Appearance redApp = new Appearance();
-    setToMyDefaultAppearance(redApp,new Color3f(0.8f,0.30f,0.90f));
+    setToMyDefaultAppearance(redApp,new Color3f(0.8f,0.0f,0.0f));
 
 
     //Half edge length of the cube that represents the platform.
@@ -297,5 +304,6 @@ public class ViewParallelProjection extends JFrame
     bgLight.addChild(light1);
     su.addBranchGraph(bgLight);
   }
+
 
 }
